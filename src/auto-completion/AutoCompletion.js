@@ -13,6 +13,7 @@ class AutoCompletion extends Component {
     this.handleFocus = this.handleFocus.bind(this);
     this.selectItem = this.selectItem.bind(this);
     this.debounceChange = debounce(DEBOUNCE_TIMEOUT, this.debounceChange);
+    this.arrowMove = this.arrowMove.bind(this);
   }
   handleBlur(e) {
     this.setState({
@@ -43,11 +44,40 @@ class AutoCompletion extends Component {
       activeIndex: null
     });    
   }
+  arrowMove(e) {
+    if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        let activeIndex = (this.state.activeIndex === null) ? -1 : this.state.activeIndex;
+        let index = (((activeIndex + 1) % this.props.items.length) + this.props.items.length) % this.props.items.length;
+        this.setState({
+            activeIndex: index
+        });
+    }
+    if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        let activeIndex = (this.state.activeIndex === null) ? 10 : this.state.activeIndex;
+        let index = (((activeIndex - 1) % this.props.items.length) + this.props.items.length) % this.props.items.length;
+        this.setState({
+            activeIndex: index
+        });
+    }
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        this.selectItem(this.props.items[this.state.activeIndex]);
+    }   
+  }
   render() {
     return (
       <form className="autocomplete-cnt" tabIndex="0" onBlur={this.handleBlur}>
         <div className="form-group">
-          <input type="text" value={this.state.value} onFocus={this.handleFocus} className="form-control" placeholder="Search here..." onChange={this.handleChange} />
+          <input type="text" 
+            onKeyDown={this.arrowMove} 
+            value={this.state.value} 
+            onFocus={this.handleFocus} 
+            className="form-control" 
+            placeholder="Search here..." 
+            onChange={this.handleChange} 
+          />
           {this.props.isFetching && <label>Fetching</label>}
         </div>
         {this.state.showList && <List>
