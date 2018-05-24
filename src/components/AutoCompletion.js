@@ -86,7 +86,13 @@ class AutoCompletion extends Component {
           {this.props.isFetching && <label>Fetching</label>}
         </div>
         {this.state.showList && <List>
-          {this.props.items.map((i, index) => <Item key={i.id} onSelect={() => this.selectItem(i)} caption={i.name} active={this.props.items[this.state.activeIndex] === i} onActive={() => this.setState({ activeIndex: index })} />)}
+          {this.props.items.map((i, index) => 
+            <Item key={i.id} 
+              onSelect={() => this.selectItem(i)} 
+              caption={i.name} 
+              active={this.props.items[this.state.activeIndex] === i} 
+              onActive={() => this.setState({ activeIndex: index })} />
+            )}
         </List>}
       </form>
     );
