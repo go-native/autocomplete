@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import './AutoCompletion.css';
+import { debounce } from 'throttle-debounce';
 import List from './List';
 import Item from './Item';
 
+const DEBOUNCE_TIMEOUT = 500;
 class AutoCompletion extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +12,7 @@ class AutoCompletion extends Component {
     this.handleBlur = this.handleBlur.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
     this.selectItem = this.selectItem.bind(this);
+    this.debounceChange = debounce(DEBOUNCE_TIMEOUT, this.debounceChange);
   }
   handleBlur(e) {
     this.setState({
@@ -24,11 +26,14 @@ class AutoCompletion extends Component {
   }
   handleChange(e) {
     this.setState({
-      value: e.target.value,
-      showList: true,
-      activeIndex: null
+        value: e.target.value,
+        showList: true,
+        activeIndex: null
     })
-    this.props.onChange(e.target.value);
+    this.debounceChange(e.target.value);
+  }
+  debounceChange(value) {
+    this.props.onChange(value);
   }
   selectItem(item) {
     this.props.onSelect(item);
@@ -43,6 +48,7 @@ class AutoCompletion extends Component {
       <form className="autocomplete-cnt" tabIndex="0" onBlur={this.handleBlur}>
         <div className="form-group">
           <input type="text" value={this.state.value} onFocus={this.handleFocus} className="form-control" placeholder="Search here..." onChange={this.handleChange} />
+          {this.props.isFetching && <label>Fetching</label>}
         </div>
         {this.state.showList && <List>
           {this.props.items.map((i, index) => <Item key={i.id} onSelect={() => this.selectItem(i)} caption={i.name} active={this.props.items[this.state.activeIndex] === i} onActive={() => this.setState({ activeIndex: index })} />)}
