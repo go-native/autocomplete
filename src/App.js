@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import AutoCompletion from './AutoCompletion/AutoCompletion';
 
+const ALL_REPOS =  [
+  {id:1, name: "Tensorflow"}, 
+  {id:3, name: "VisualStudioCode"}, 
+  {id:2, name: "Quandoo"}
+]
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {repos: []};
+  }
+  searchRepos(query) {
+    this.setState({repos: ALL_REPOS.filter(r => r.name.indexOf(query) !== -1)})
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <AutoCompletion
+          items={this.state.repos}
+          onSelect={(selectedItem) => console.log(selectedItem)}
+          onChange={(query) => this.searchRepos((query))}
+        />
       </div>
     );
   }
