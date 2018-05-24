@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AutoCompletion /> renders 1`] = `
+<form
+  className="autocomplete-cnt"
+  onBlur={[Function]}
+  tabIndex="0"
+>
+  <div
+    className="form-group"
+  >
+    <input
+      className="form-control"
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Search here..."
+      type="text"
+      value=""
+    />
+  </div>
+  <ul
+    className="list-group"
+  >
+    <li
+      className="list-group-item"
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      Tensorflow
+    </li>
+    <li
+      className="list-group-item"
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      VisualStudioCode
+    </li>
+    <li
+      className="list-group-item"
+      onMouseDown={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      Quandoo
+    </li>
+  </ul>
+</form>
+`;

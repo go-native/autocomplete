@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AutoCompletion /> renders 1`] = `
+<li
+  className="list-group-item"
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  Hey
+</li>
+`;

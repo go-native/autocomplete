@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AutoCompletion /> renders children 1`] = `
+<ul
+  className="list-group"
+>
+  <div />
+</ul>
+`;

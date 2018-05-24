@@ -31,12 +31,14 @@ class AutoCompletion extends Component {
         showList: true,
         activeIndex: null
     })
+    // Debounce the function call to avoid multiple requests
     this.debounceChange(e.target.value);
   }
   debounceChange(value) {
     this.props.onChange(value);
   }
   selectItem(item) {
+    // Propogate the item to the parent
     this.props.onSelect(item);
     this.setState({
       value: item.name,
@@ -46,6 +48,7 @@ class AutoCompletion extends Component {
   }
   arrowMove(e) {
     if (e.key === 'ArrowDown') {
+        // Looping through the items from top to bottom
         e.preventDefault();
         let activeIndex = (this.state.activeIndex === null) ? -1 : this.state.activeIndex;
         let index = (((activeIndex + 1) % this.props.items.length) + this.props.items.length) % this.props.items.length;
@@ -54,6 +57,7 @@ class AutoCompletion extends Component {
         });
     }
     if (e.key === 'ArrowUp') {
+        // Looping through the items from bottom to top
         e.preventDefault();
         let activeIndex = (this.state.activeIndex === null) ? 10 : this.state.activeIndex;
         let index = (((activeIndex - 1) % this.props.items.length) + this.props.items.length) % this.props.items.length;
@@ -62,6 +66,7 @@ class AutoCompletion extends Component {
         });
     }
     if (e.key === 'Enter') {
+        // Select an item when the Enter key is hit
         e.preventDefault();
         this.selectItem(this.props.items[this.state.activeIndex]);
     }   

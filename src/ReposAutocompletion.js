@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react'
-import AutoCompletion from './auto-completion/AutoCompletion';
+import AutoCompletion from './components/AutoCompletion';
 import { getRepos } from './get-repos';
 
 const ReposAutocompletion = ({ dispatch, repos, isFetching }) => {
